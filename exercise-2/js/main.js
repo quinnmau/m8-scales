@@ -8,7 +8,8 @@ $(function() {
          var svg = d3.select('#vis')
                     .append('svg')
                     .attr('width', 600)
-                    .attr('height', 600);
+                    .attr('height', 600)
+                    .style('float', 'left');
 
 		// Margin: how much space to put in the SVG for axes/titles
 		var margin = {
@@ -61,7 +62,7 @@ $(function() {
                 .attr('fill', function(d) {return colorScale(d.region)})
                 .attr('cy', height)
                 .attr('title', function(d) {return d.country + ', ' + d.region})
-                .style('opacity', 0.4);
+                .style('opacity', 0.5);
                 
                 
 
@@ -109,7 +110,20 @@ $(function() {
             .attr('class', 'title')
             .attr('transform', 'translate(' + (margin.left - 40) + ', ' + (margin.top + height/2) + ') rotate(-90)')
             .text('Life Expectancy');
-
+            
+        var legend = d3.select('#vis')
+                        .append('div')
+                        .style('float', 'left');
+                        
+        var keys = legend.selectAll('div')
+                    .data(data, function(d) {return d.region});
+                    
+        keys.enter()
+            .append('div')
+            .text(function(d) {return d.region})
+            .style('background-color', function(d) {return colorScale(d.region)});
+            
+        keys.exit().remove();
 		/* Using jQuery, select all circles and apply a tooltip
 		If you want to use bootstrap, here's a hint:
 		http://stackoverflow.com/questions/14697232/how-do-i-show-a-bootstrap-tooltip-with-an-svg-object
