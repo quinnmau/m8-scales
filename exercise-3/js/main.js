@@ -25,10 +25,34 @@ $(function() {
 
 
 		// Append all non-data placeholder elements for you chart (svg, g, axis labels, axes), but do not call the axis functions that render them.
-
+        var svg = d3.select('#vis')
+                    .append('svg')
+                    .attr('width', 1000)
+                    .attr('height', 600);
+                    
+        var g = svg.append('g')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+                    
+        var xAxis = d3.svg.axis()
+                    .scale(xScale)
+                    .orient('bottom');
+                    
+        var xAxisLabel = svg.append('g')
+                            .attr('class', 'axis')
+                            .attr('transform', 'translate(' + margin.left + ', ' + (height + margin.top) + ')');
+                            
+        var yAxis = d3.svg.axis()
+                    .scale(yScale)
+                    .orient('left');
+                    
+        var yAxisLabel = svg.append('g')
+                            .attr('class', 'axis')
+                            .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ') rotate(-90)');
 
 		// Write a function for setting the scales based on the current data selection.
-
+        
 
 
 		// Write a function for updating your axis elements (both the axes, and their labels).
